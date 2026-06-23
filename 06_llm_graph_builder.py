@@ -128,7 +128,7 @@ def populate_graph_from_extraction(extracted):
                 session.run(query, from_name=from_name, to_name=to_name)
                 print(f"  ({from_name}) -[{relation}]-> ({to_name})")
 
-    print(f"\nGraph berhasil di-update dengan data baru!")
+    print(f"\nGraph successfully updated with new data!")
 
 if __name__ == "__main__":
     print("DEMO: LLM Graph Builder\n")

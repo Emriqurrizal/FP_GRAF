@@ -62,8 +62,8 @@ def run_pagerank():
         for i, r in enumerate(results, 1):
             print(f" {i:<6} {r['label']:<12} {r['name']:<35} {r['score']:.6f}")
             
-    print("\nInsight: Node dengan PageRank tertinggi adalah yang paling 'sentral'")
-    print("         dalam jaringan medis — paling banyak terhubung ke entitas lain.")
+    print("\nInsight: Nodes with the highest PageRank are the most 'central'")
+    print("         in the medical network — mostly connected to other entities.")
 
 def run_community_detection():
     """Cluster nodes using the Louvain method."""
@@ -87,10 +87,10 @@ def run_community_detection():
         for r in results:
             diseases_str = ", ".join(r["sample_diseases"])
             print(f" Community {r['communityId']} (Size: {r['size']} diseases)")
-            print(f"   Contoh: {diseases_str}\n")
+            print(f"   Examples: {diseases_str}\n")
 
-    print("Insight: Penyakit dalam komunitas yang sama cenderung berbagi")
-    print("         gejala, obat, atau penanganan yang mirip.")
+    print("Insight: Diseases in the same community tend to share")
+    print("         similar symptoms, medications, or treatments.")
 
 def run_shortest_path_and_degree():
     """Find shortest path between 2 diseases and calculate degree centrality."""
@@ -116,7 +116,7 @@ def run_shortest_path_and_degree():
     disease_a = sample_diseases[0]
     disease_b = sample_diseases[1]
     
-    print(f" Mencari jalur terpendek antara:")
+    print(f" Finding shortest path between:")
     print(f"  Disease A: {disease_a}")
     print(f"  Disease B: {disease_b}\n")
     
@@ -141,7 +141,7 @@ def run_shortest_path_and_degree():
                 path_str += f" --[{rel}]--> {nodes[i+1]}"
             print(f"    {path_str}")
         else:
-            print("  Tidak ditemukan jalur antara kedua penyakit")
+            print("  No path found between the two diseases")
 
     # Degree Centrality
     print(f"\n{'='*60}")

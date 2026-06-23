@@ -62,14 +62,11 @@ RULES:
 7. Disease names in the database are lowercase.
 
 EXAMPLES:
-User: "Penyakit apa yang punya gejala fever dan headache?"
+User: "What disease has the symptoms fever and headache?"
 Cypher: MATCH (d:Disease)-[:HAS_SYMPTOM]->(s:Symptom) WHERE toLower(s.name) IN ['fever', 'headache'] WITH d, collect(s.name) AS matched, count(s) AS cnt RETURN d.name AS disease, matched AS matched_symptoms, cnt AS match_count ORDER BY cnt DESC LIMIT 10
 
-User: "Obat untuk malaria?"
+User: "Medications for malaria?"
 Cypher: MATCH (d:Disease)-[:TREATED_WITH]->(m:Medication) WHERE toLower(d.name) = 'malaria' RETURN d.name AS disease, collect(m.name) AS medications
-
-User: "Rekomendasi diet dan olahraga untuk asthma?"
-Cypher: MATCH (d:Disease) WHERE toLower(d.name) = 'asthma' OPTIONAL MATCH (d)-[:RECOMMENDED_DIET]->(dt:Diet) OPTIONAL MATCH (d)-[:RECOMMENDED_WORKOUT]->(w:Workout) RETURN d.name AS disease, collect(DISTINCT dt.name) AS diets, collect(DISTINCT w.name) AS workouts
 
 NOW GENERATE CYPHER FOR THIS QUESTION:
 {question}"""
@@ -80,7 +77,7 @@ text_to_cypher_chain = prompt | llm | StrOutputParser()
 def text_to_cypher(question: str):
     """Translate natural language question to Cypher using LangChain and execute."""
     print(f"\n{'='*60}")
-    print(f" Pertanyaan: {question}")
+    print(f" Question: {question}")
     print(f"{'='*60}")
 
     schema = get_graph_schema()
@@ -116,9 +113,8 @@ if __name__ == "__main__":
     print("DEMO: LLM Text-to-Cypher (LangChain Version)\n")
 
     demo_questions = [
-        "Penyakit apa saja yang memiliki gejala fever dan headache?",
-        "Obat apa yang direkomendasikan untuk common cold?",
-        "Berikan rekomendasi diet dan olahraga untuk diabetes"
+        "What diseases have the symptoms of fever and headache?",
+        "What medication is recommended for the common cold?",
     ]
 
     try:

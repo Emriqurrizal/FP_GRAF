@@ -100,8 +100,8 @@ def run_shared_symptoms_similarity():
             print(f"  [{i}] {r['disease_1']} <-> {r['disease_2']}")
             print(f"      Shared: {r['shared_symptoms']} symptoms (e.g., {symptoms_str})\n")
             
-    print("Insight: Penyakit dengan similarity tinggi dan banyak shared symptoms")
-    print("         bisa saling misdiagnosis — penting untuk differential diagnosis.")
+    print("Insight: Diseases with high similarity and many shared symptoms")
+    print("         can be misdiagnosed for one another — important for differential diagnosis.")
 
 if __name__ == "__main__":
     try:

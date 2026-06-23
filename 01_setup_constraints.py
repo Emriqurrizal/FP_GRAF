@@ -1,14 +1,14 @@
 from neo4j import GraphDatabase
 from config import NEO4J_URI, NEO4J_USER, NEO4J_PASSWORD
 
-print("Connecting ke Neo4j")
+print("Connecting to Neo4j")
 driver = GraphDatabase.driver(NEO4J_URI, auth=(NEO4J_USER, NEO4J_PASSWORD))
 
 try:
     driver.verify_connectivity()
-    print(" Koneksi ke Neo4j berhasil!\n")
+    print(" Connection to Neo4j successful!\n")
 except Exception as e:
-    print(f" Koneksi gagal: {e}")
+    print(f" Connection failed: {e}")
     exit(1)
 
 constraints = [
@@ -20,14 +20,14 @@ constraints = [
     ("Diet",        "CREATE CONSTRAINT diet_name IF NOT EXISTS FOR (dt:Diet) REQUIRE dt.name IS UNIQUE"),
 ]
 
-print("Membuat constraints")
+print("Creating constraints")
 with driver.session() as session:
     for label, query in constraints:
         try:
             session.run(query)
-            print(f"  Selesai membuat constraint node :{label}")
+            print(f"  Finished creating constraint for node :{label}")
         except Exception as e:
-            print(f"  Gagal  :{label} — {e}")
+            print(f"  Failed :{label} — {e}")
 
 driver.close()
 print("\n Setup done.")

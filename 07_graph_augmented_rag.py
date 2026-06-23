@@ -98,12 +98,12 @@ if __name__ == "__main__":
     print("\n" + "=" * 50)
     print("MediGraph AI — Interactive Mode")
     print("=" * 50)
-    print("Ketik pertanyaan medis dalam Bahasa Indonesia atau English.")
-    print("Ketik 'quit' atau 'exit' untuk berhenti.\n")
+    print("Type a medical question in English.")
+    print("Type 'quit' or 'exit' to stop.\n")
     
     while True:
         try:
-            user_input = input("Pertanyaan Anda: ").strip()
+            user_input = input("Your Question: ").strip()
         except (EOFError, KeyboardInterrupt):
             print("\nBye!")
             break
@@ -112,7 +112,7 @@ if __name__ == "__main__":
             continue
             
         if user_input.lower() in ["quit", "exit", "q"]:
-            print("\nTerima kasih telah menggunakan MediGraph AI!")
+            print("\nThank you for using MediGraph AI!")
             break
             
         ask_medigraph(user_input)

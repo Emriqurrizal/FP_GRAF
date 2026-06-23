@@ -6,7 +6,7 @@ from config import NEO4J_URI, NEO4J_USER, NEO4J_PASSWORD, DATA_DIR
 
 driver = GraphDatabase.driver(NEO4J_URI, auth=(NEO4J_USER, NEO4J_PASSWORD))
 driver.verify_connectivity()
-print("Terhubung ke Neo4j\n")
+print("Connected to Neo4j\n")
 
 print("Loading Diseases & Symptoms")
 
@@ -19,8 +19,8 @@ for disease, group in df_main.groupby("diseases"):
     active_symptoms = symptom_freq[symptom_freq > 0.1].index.tolist()
     disease_symptoms[disease] = active_symptoms
 
-print(f"  → {len(disease_symptoms)} penyakit unik")
-print(f"  → {len(symptom_cols)} gejala tersedia")
+print(f"  → {len(disease_symptoms)} unique diseases")
+print(f"  → {len(symptom_cols)} symptoms available")
 
 def ingest_diseases_and_symptoms(tx, disease_name, symptoms):
     tx.run("MERGE (d:Disease {name: $name})", name=disease_name)
@@ -35,7 +35,7 @@ def ingest_diseases_and_symptoms(tx, disease_name, symptoms):
 with driver.session() as session:
     for i, (disease, symptoms) in enumerate(disease_symptoms.items(), 1):
         session.execute_write(ingest_diseases_and_symptoms, disease, symptoms)
-        print(f"  [{i:>3}/{len(disease_symptoms)}] {disease} ({len(symptoms)} gejala)")
+        print(f"  [{i:>3}/{len(disease_symptoms)}] {disease} ({len(symptoms)} symptoms)")
 
 print(f"\nStep 1 done.\n")
 
@@ -55,7 +55,7 @@ with driver.session() as session:
         disease_name = str(row["Disease"]).strip().lower()
         session.execute_write(ingest_description, disease_name, str(row["Description"]))
         matched += 1
-    print(f"  ✅ {matched} deskripsi di-update")
+    print(f"  ✅ {matched} descriptions updated")
 
 print("STEP 3: Loading Medications")
 
@@ -85,7 +85,7 @@ with driver.session() as session:
         disease_name = str(row["Disease"]).strip().lower()
         meds = parse_list_string(row["Medication"])
         session.execute_write(ingest_medications, disease_name, meds)
-    print(f" {len(df_meds)} penyakit + obat di-ingest")
+    print(f" {len(df_meds)} diseases + medications ingested")
 
 print("STEP 4: Loading Precautions")
 
@@ -110,7 +110,7 @@ with driver.session() as session:
                  for i in range(1, 5)
                  if pd.notna(row.get(f"Precaution_{i}"))]
         session.execute_write(ingest_precautions, disease_name, precs)
-    print(f"  {len(df_prec)} penyakit + precautions di-ingest")
+    print(f"  {len(df_prec)} diseases + precautions ingested")
 
 print("\n" + "=" * 55)
 print("🏋️ STEP 5: Loading Workouts...")
@@ -135,7 +135,7 @@ with driver.session() as session:
         disease_name = str(row["Disease"]).strip().lower()
         workouts = parse_list_string(row["Workouts"])
         session.execute_write(ingest_workouts, disease_name, workouts)
-    print(f"  {len(df_workout)} penyakit + workouts di-ingest")
+    print(f"  {len(df_workout)} diseases + workouts ingested")
 
 print("STEP 6: Loading Diets")
 
@@ -158,7 +158,7 @@ with driver.session() as session:
         disease_name = str(row["Disease"]).strip().lower()
         diets = parse_list_string(row["Diet"])
         session.execute_write(ingest_diets, disease_name, diets)
-    print(f"  {len(df_diet)} penyakit + diets di-ingest")
+    print(f"  {len(df_diet)} diseases + diets ingested")
 
 print("Counting nodes & relationships")
 
@@ -174,7 +174,7 @@ with driver.session() as session:
     result2 = session.run("MATCH ()-[r]->() RETURN TYPE(r) AS RelType, COUNT(r) AS Total ORDER BY Total DESC")
     print()
     for r in result2:
-        print(f"  {r['RelType']:>25}: {r['Total']} relasi")
+        print(f"  {r['RelType']:>25}: {r['Total']} relationships")
 
 driver.close()
 print(" Done, run di http://localhost:7474")
