@@ -204,3 +204,22 @@ python 07_graph_augmented_rag.py
 ---
 
 > **Catatan:** Skrip `.py` modular dan notebook `FP_GRAF_MediGraph.ipynb` mengimplementasikan pipeline yang sama. Gunakan skrip untuk pengembangan lokal dan notebook untuk demonstrasi di Google Colab.
+
+---
+
+## Penggunaan AI & Modifikasi Manual
+
+Pengembangan proyek dan basis kode ini sangat dibantu oleh **Claude Sonnet 4.6 (Thinking Mode)** sebagai asisten *coding* AI utama.
+
+**Peran AI dalam Proyek:**
+- Merancang fondasi kode untuk arsitektur 4-Tier (Text-to-Cypher, GDS, ML on Graph, LLM Builder, dan Graph RAG).
+- Melakukan refaktorisasi file notebook besar menjadi skrip Python modular (`01` s/d `07`).
+- Menulis draf *query* Cypher dasar dan algoritma analisis Neo4j.
+- Menyusun dokumentasi, penjelasan struktur direktori, serta narasi presentasi (README, draf metodologi).
+
+**Modifikasi & Penyesuaian Manual:**
+Meski kode dasar di-*generate* oleh AI, kami tetap melakukan modifikasi dan penyetelan manual yang esensial agar sistem dapat berjalan optimal:
+1. **Penyempurnaan Prompt (Prompt Engineering):** Memodifikasi template *prompt* LangChain pada tahap *Text-to-Cypher* dan RAG secara manual untuk memastikan model (khususnya model OpenRouter *free-tier*) merespons dengan struktur Cypher dan JSON yang valid tanpa berhalusinasi.
+2. **Koreksi Relasi & Algoritma GDS:** Memperbaiki arah panah relasi Neo4j pada kode AI yang terkadang terbalik, serta menyetel ulang konfigurasi parameter *node/relationship projection* di fungsi FastRP, KNN, dan PageRank.
+3. **Standarisasi Dataset & Lokalisasi:** Melakukan pra-pemrosesan data secara manual menggunakan Pandas (misal: `merge_all_csv.py`), serta menerjemahkan/menyesuaikan istilah medis agar seragam antara format pertanyaan (Inggris/Indonesia) dan isi graf.
+4. **Integrasi & Error Handling:** Menambahkan mekanisme *try-except* berlapis, mengelola muatan kredensial `.env` yang aman, dan menyederhanakan *output* panjang di terminal menjadi ringkas agar nyaman dibaca.
