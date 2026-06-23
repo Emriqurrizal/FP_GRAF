@@ -117,7 +117,8 @@ if __name__ == "__main__":
 
     demo_questions = [
         "Penyakit apa saja yang memiliki gejala fever dan headache?",
-        "Obat apa yang direkomendasikan untuk common cold?",,
+        "Obat apa yang direkomendasikan untuk common cold?",
+        "Berikan rekomendasi diet dan olahraga untuk diabetes"
     ]
 
     try:
