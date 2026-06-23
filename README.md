@@ -1,6 +1,6 @@
 #  MediGraph — Knowledge Graph Medis dengan Neo4j + LLM
 
-> **Final Project — Basis Data Graf (Semester 6)**
+> **Final Project — Graf Pengetahuan**
 
 MediGraph membangun sebuah **Knowledge Graph** yang menghubungkan penyakit, gejala, obat-obatan, diet, olahraga, dan tindakan pencegahan menggunakan **Neo4j**, lalu mengintegrasikan **Large Language Model (LLM)** melalui OpenRouter untuk analisis cerdas dan tanya-jawab berbasis graf.
 
