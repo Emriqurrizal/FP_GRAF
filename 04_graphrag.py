@@ -97,7 +97,7 @@ def ask_medigraph(query: str):
 if __name__ == "__main__":
     # Test queries
     test_queries = [
-        "I have a runny nose, sneezing, and an itchy throat. What disease could this be, and what medications are recommended?"
+        "I was just diagnosed with hypertensive heart disease. What precautions should I take and what workouts should I avoid or do?"
     ]
     
     for q in test_queries:
