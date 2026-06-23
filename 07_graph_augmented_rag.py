@@ -95,10 +95,25 @@ def ask_medigraph(query: str):
         print(f"Error during GraphRAG execution: {e}")
 
 if __name__ == "__main__":
-    # Test queries
-    test_queries = [
-        "I was just diagnosed with hypertensive heart disease. What precautions should I take and what workouts should I avoid or do?"
-    ]
+    print("\n" + "=" * 50)
+    print("MediGraph AI — Interactive Mode")
+    print("=" * 50)
+    print("Ketik pertanyaan medis dalam Bahasa Indonesia atau English.")
+    print("Ketik 'quit' atau 'exit' untuk berhenti.\n")
     
-    for q in test_queries:
-        ask_medigraph(q)
+    while True:
+        try:
+            user_input = input("Pertanyaan Anda: ").strip()
+        except (EOFError, KeyboardInterrupt):
+            print("\nBye!")
+            break
+            
+        if not user_input:
+            continue
+            
+        if user_input.lower() in ["quit", "exit", "q"]:
+            print("\nTerima kasih telah menggunakan MediGraph AI!")
+            break
+            
+        ask_medigraph(user_input)
+
